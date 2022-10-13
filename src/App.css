@@ -1,38 +1,118 @@
-.App {
-  text-align: center;
+body {
+  background: #fff;
+  padding:20px;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.heading {
+  justify-content: center;
+    display: flex;
+    font-size: 20px;
+    
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  /* position: relative; */
+  /* width: 20px; */
+  height: 300px;
+  background: #f1f1f1;
+  /* margin: 100px auto 0; */
+  word-break: break-all;
+  /* padding: 10px; */
+  border: 1px solid rgba(0, 0, 0, 0.274);
 }
 
-.App-link {
-  color: #61dafb;
+.bloc-tabs {
+  display: flex;
+}
+.tabs {
+
+ 
+  padding: 1rem;
+  text-align: center;
+  width: 70%;
+  border-radius: 30px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.274);
+  box-sizing: content-box;
+  position: relative;
+  outline: none;
+  font-size: 20px;
+  background: lightskyblue;
+  margin: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.tabs:not(:last-child){
+  border-right: 1px solid rgba(0, 0, 0, 0.274);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.active-tabs  {
+  background: antiquewhite;
+  color: rgb(6, 158, 253);
+  /* border-bottom: 1px solid transparent; */
+}
+
+.active-tabs::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% + 2px);
+  height: 5px;
+  /* background: rgb(88, 147, 241); */
+}
+
+
+
+button {
+  border: none;
+  
+}
+.content-tabs {
+  flex-grow : 1;
+}
+.content {
+  background: white;
+  padding: 20px;
+  width: 100%;
+  height: 100%;
+  display: none;
+  text-align: center;
+}
+.content h2 {
+  padding: 0px 0 5px 0px;
+}
+.content hr {
+  width: 100px;
+  height: 2px;
+  background: #222;
+  margin-bottom: 5px;
+}
+.content p {
+  width: 100%;
+  height: 100%;
+}
+.active-content {
+  display: block;
+}
+.content_head {
+  font-size: 20px;
+  /* font-weight: 700; */
+
+}
+.staff-content {
+  display: flex;
+  justify-content: space-between;
+}
+.input-box {
+  padding: 10px;
+  border-color: black;
+  font-weight: 800;
+  width: 100%;
+  margin: 7px;
+  /* border-width: 2px 2px 2px 2px; */
+  border-radius: 5px;
+  font-size: 17px;
+  text-align: center;
 }
