@@ -104,6 +104,17 @@ button {
 .staff-content {
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 0rem 11rem;
+}
+.staff-content-3 {
+  display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin: 0rem 36px;
+}
+.head {
+  font-size: 14px;
 }
 .input-box {
   padding: 10px;
@@ -115,4 +126,15 @@ button {
   border-radius: 5px;
   font-size: 17px;
   text-align: center;
+}
+.input-box-3 {
+  padding: 6px;
+    border-color: black;
+    font-weight: 800;
+    width: 77%;
+    margin: 5px;
+    /* border-width: 2px 2px 2px 2px; */
+    border-radius: 5px;
+    font-size: 11px;
+    text-align: center;
 }
