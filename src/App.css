@@ -20,6 +20,14 @@ body {
   /* padding: 10px; */
   border: 1px solid rgba(0, 0, 0, 0.274);
 }
+.input-card {
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 9px;
+    margin-bottom: 9px;
+}
 
 .bloc-tabs {
   display: flex;
@@ -115,12 +123,13 @@ button {
 }
 .head {
   font-size: 14px;
+  font-weight: 700;
 }
 .input-box {
   padding: 10px;
   border-color: black;
   font-weight: 800;
-  width: 100%;
+  /* width: 100%; */
   margin: 7px;
   /* border-width: 2px 2px 2px 2px; */
   border-radius: 5px;
