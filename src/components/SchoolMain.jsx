@@ -394,15 +394,11 @@ function SchoolMain() {
                   onChange={handleChange}
                   name="coursename"
                 >
-                  {Object.keys(course).map((item, i) => {
-                    {
-                      Object.keys(item).map((item2, i2) => (
-                        <option key={i} value={course[item2].staffname}>
-                          {course[item].staffname}
-                        </option>
-                      ));
-                    }
-                  })}
+                   {Object.keys(staffDetails).map((item, i) => (
+                      <option key={i} value={staffDetails[item].name}>
+                        {staffDetails[item].name}
+                      </option>
+                    ))}
                 </select>
               </div>
             </form>
