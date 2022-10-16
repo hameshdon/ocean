@@ -4,9 +4,11 @@ import axios from "axios";
 function SchoolMain() {
   const [toggleState, setToggleState] = useState(1);
   const [staff, setStaff] = useState({});
+  const [staffDetails, setStaffDetils] = useState({});
+  const [staffDetailsTemp, setStaffDetilsTemp] = useState("");
   const [course, setCourse] = useState({});
   const [student, setStudent] = useState({});
-  const [change, setChange] = useState(false);
+  const [change, setChange] = useState("");
   const [staffData, setStaffData] = useState({
     name: "",
     email: "",
@@ -89,6 +91,16 @@ function SchoolMain() {
       .catch((error) => {
         console.log(error);
       });
+
+    axios
+      .get("https://61ef7787732d93001778e3c3.mockapi.io/Staff")
+      .then((response) => {
+        console.log(response);
+        setStaffDetils(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
   useEffect(() => {
@@ -103,22 +115,20 @@ function SchoolMain() {
       });
   }, []);
 
-  useEffect(() => {}, [change]);
+  // useEffect(() => {}, [change]);
 
   function saveStaf() {
-   
     axios
       .post("https://61ef7787732d93001778e3c3.mockapi.io/Staff", staffData)
       .then((response) => {
         if (response.status === 200) console.log("data saved successfully");
-        window.alert("dsds");
+        window.alert("Staff data saved successfully");
       });
   }
 
   console.log("000000", staffData);
 
   function saveCourse() {
-   
     axios
       .post("https://61ef7787732d93001778e3c3.mockapi.io/course", courseData)
       .then((response) => {
@@ -128,7 +138,6 @@ function SchoolMain() {
   }
 
   function saveStudent() {
-   
     axios
       .post("https://61ef7787732d93001778e3c3.mockapi.io/student", studentData)
       .then((response) => {
@@ -140,14 +149,9 @@ function SchoolMain() {
     setToggleState(index);
   };
 
-  const arr = [
-    { value: "", text: "--Choose an option--" },
-    { value: "apple", text: "Apple 🍏" },
-    { value: "banana", text: "Banana 🍌" },
-    { value: "kiwi", text: "Kiwi 🥝" },
-  ];
 
   const handleChange = (event) => {
+    // setChange(event.target.value)
     setCourseData({
       ...courseData,
       [event.target.name]: event.target.value,
@@ -155,12 +159,35 @@ function SchoolMain() {
   };
   const { coursename, staffname } = courseData;
   const handleChange2 = (event) => {
+    setChange(event.target.value);
+    createStaffArray(event.target.value);
     setStudentData({
       ...studentData,
       [event.target.name]: event.target.value,
     });
   };
+
+  var temparr = [];
+  function createStaffArray(c) {
+    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",c);
+    // if (change === c) {
+    for (var j = 0; j < course.length; j++) {
+      console.log(
+        "=============================================>",
+        course[j].staffName
+      );
+      if (course[j].coursename === c) {
+        temparr = course[j].staffName;
+        setStaffDetilsTemp(temparr[0])
+        console.log("temparr====>", temparr);
+      }
+    }
+    // }
+  }
+
   console.log("course====>", course);
+  console.log("staassssssssss-------------------->", staffDetailsTemp);
+
   console.log("coursedata====>", courseData);
   console.log("staffcfcfcfccff", studentData);
   return (
@@ -185,7 +212,10 @@ function SchoolMain() {
           </button>
           <button
             className={toggleState === 3 ? "tabs active-tabs" : "tabs"}
-            onClick={() => toggleTab(3)}
+            onClick={() => {
+              toggleTab(3);
+              // createStaffArray();
+            }}
           >
             Student
           </button>
@@ -312,7 +342,17 @@ function SchoolMain() {
                 <label> Course Name</label>
 
                 <div>
-                  <select
+
+                <input
+                    value={coursename}
+                    onChange={handleChange}
+                    placeholder="Course name"
+                    type="text"
+                    name="coursename"
+                    required
+                    className="input-box"
+                  />
+                  {/* <select
                     style={{ width: "14rem" }}
                     className="input-box"
                     onChange={handleChange}
@@ -324,15 +364,14 @@ function SchoolMain() {
                       </option>
                     ))}
                   </select>
-                  {/* <select
-                    className="input-box"
+                  <select
                     style={{ width: "14rem" }}
+                    className="input-box"
+                    onChange={handleChange}
                     name="coursename"
-                    value={coursename}
-                    onChange={(e) => updateCourseData(e)}
                   >
                     {Object.keys(course).map((item, i) => (
-                      <option value={i} style={{ padding: "10px" }} key={i}>
+                      <option key={i} value={course[item].coursename}>
                         {course[item].coursename}
                       </option>
                     ))}
@@ -351,26 +390,29 @@ function SchoolMain() {
                 <label>Staff name</label>
                 <select
                   className="input-box"
+                  style={{width:"12rem"}}
                   onChange={handleChange}
                   name="coursename"
                 >
                   {Object.keys(course).map((item, i) => {
-                    {Object.keys(item).map((item2,i2) =>(
-                    <option key={i} value={course[item2].staffname}>
-                      {course[item].staffname}
-                    </option>
-                    ))}
-})}
+                    {
+                      Object.keys(item).map((item2, i2) => (
+                        <option key={i} value={course[item2].staffname}>
+                          {course[item].staffname}
+                        </option>
+                      ));
+                    }
+                  })}
                 </select>
               </div>
             </form>
             <button
-                onClick={() => {
-                  saveCourse();
-                }}
-              >
-                Save
-              </button>
+              onClick={() => {
+                saveCourse();
+              }}
+            >
+              Save
+            </button>
           </div>
 
           <div
@@ -556,17 +598,17 @@ function SchoolMain() {
               >
                 <label>Course name</label>
                 <select
-                    style={{ width: "14rem" }}
-                    className="input-box"
-                    onChange={handleChange2}
-                    name="coursenameupdate"
-                  >
-                    {Object.keys(course).map((item, i) => (
-                      <option key={i} value={course[item].coursename}>
-                        {course[item].coursename}
-                      </option>
-                    ))}
-                  </select>
+                  style={{ width: "14rem" }}
+                  className="input-box"
+                  onChange={handleChange2}
+                  name="coursenameupdate"
+                >
+                  {Object.keys(course).map((item, i) => (
+                    <option key={i} value={course[item].coursename}>
+                      {course[item].coursename}
+                    </option>
+                  ))}
+                </select>
                 {/* <input
                   value={coursenameupdate}
                   onChange={(e) => updateStudentData(e)}
@@ -588,7 +630,7 @@ function SchoolMain() {
               >
                 <label>Staff name</label>
                 <input
-                  value={staffnameupdate}
+                  value={staffDetailsTemp}
                   onChange={(e) => updateStudentData(e)}
                   placeholder="Staff name"
                   type="text"
